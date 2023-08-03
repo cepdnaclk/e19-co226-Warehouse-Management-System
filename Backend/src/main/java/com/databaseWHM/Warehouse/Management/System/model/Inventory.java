@@ -11,7 +11,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor//constructor
 public class Inventory {
     @Id
-    private String SKU;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long SKU;
     private int quantityInStock;
     private String location;
 

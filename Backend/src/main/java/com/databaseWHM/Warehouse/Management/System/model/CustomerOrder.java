@@ -4,8 +4,11 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data//getters and setters
@@ -21,7 +24,9 @@ public class CustomerOrder {
     @JoinColumn(name = "customerID")
     private Customer customer;
 
-    @OneToMany(mappedBy = "customerOrder", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JoinColumn(name = "order_ID",
+    referencedColumnName = "orderID")
     private List<OrderItem> orderItems;
 
 }

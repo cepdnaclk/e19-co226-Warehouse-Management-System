@@ -12,10 +12,6 @@ public class OrderItem {
     private Long orderItemId;
 
     @ManyToOne
-    @JoinColumn(name = "orderId")
-    private CustomerOrder customerOrder;
-
-    @ManyToOne
     @JoinColumn(name = "productId")
     private Product product;
 

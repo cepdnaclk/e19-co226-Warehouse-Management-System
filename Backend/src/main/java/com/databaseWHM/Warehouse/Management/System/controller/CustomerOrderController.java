@@ -63,6 +63,6 @@ public class CustomerOrderController {
         }
 
         customerOrderRepository.deleteById(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().build();
     }
 }

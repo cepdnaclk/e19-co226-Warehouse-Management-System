@@ -1,8 +1,10 @@
 package com.databaseWHM.Warehouse.Management.System.repository;
-import com.databaseWHM.Warehouse.Management.System.model.Customer;
+
+
+import com.databaseWHM.Warehouse.Management.System.model.Inventory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CustomerRepository extends JpaRepository<Customer,Long> {
+public interface InventoryRepository extends JpaRepository<Inventory,Long> {
 }

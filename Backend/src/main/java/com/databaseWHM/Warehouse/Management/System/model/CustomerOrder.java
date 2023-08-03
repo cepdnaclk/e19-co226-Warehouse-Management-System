@@ -1,26 +1,27 @@
 package com.databaseWHM.Warehouse.Management.System.model;
 
-import java.util.Date;
-import java.util.List;
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Data//getters and setters
 @NoArgsConstructor//no argument constructor
 @AllArgsConstructor//constructor
-public class Order {
+public class CustomerOrder {
     @Id
-    private int orderID;
-    private Date orderDate;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long orderID;
+    private String orderDate;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id")
+    @JoinColumn(name = "customerID")
     private Customer customer;
 
-    @OneToMany(mappedBy = "productOrder")
+    @OneToMany(mappedBy = "customerOrder", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> orderItems;
+
 }

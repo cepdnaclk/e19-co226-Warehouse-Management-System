@@ -1,9 +1,87 @@
-import React from 'react'
+import React, { useState } from 'react';
+import axios from 'axios';
+import { variables } from '../Variables';
 
-function AddProduct() {
-  return (
-    <div>AddProduct</div>
-  )
-}
+const AddProduct = () => {
+    const [formData, setFormData] = useState({
+        productName: '',
+        category: '',
+        description: '',
+        sellingPrice: '',
+    });
 
-export default AddProduct
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
+    };
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        try {
+            await axios.post(variables.API_URL + '/api/products', formData);
+            setFormData({
+                productName: '',
+                category: '',
+                description: '',
+                sellingPrice: '',
+            });
+            alert('Product successfully added!');
+        } catch (error) {
+            alert('Product adding failed!');
+        }
+    };
+
+    return (
+        <div>
+            <h1>Add Product</h1>
+            <form onSubmit={handleSubmit}>
+                <div>
+                    <label htmlFor="productName">Product Name:</label>
+                    <input
+                        type="text"
+                        id="productName"
+                        name="productName"
+                        value={formData.productName}
+                        onChange={handleInputChange}
+                    />
+                </div>
+                <div>
+                    <label htmlFor="category">Category:</label>
+                    <input
+                        type="text"
+                        id="category"
+                        name="category"
+                        value={formData.category}
+                        onChange={handleInputChange}
+                    />
+                </div>
+                <div>
+                    <label htmlFor="description">Description:</label>
+                    <input
+                        type="text"
+                        id="description"
+                        name="description"
+                        value={formData.description}
+                        onChange={handleInputChange}
+                    />
+                </div>
+                <div>
+                    <label htmlFor="sellingPrice">Selling Price:</label>
+                    <input
+                        type="text"
+                        id="sellingPrice"
+                        name="sellingPrice"
+                        value={formData.sellingPrice}
+                        onChange={handleInputChange}
+                    />
+                </div>
+                <button type="submit">Add Product</button>
+            </form>
+        </div>
+    );
+};
+
+export default AddProduct;

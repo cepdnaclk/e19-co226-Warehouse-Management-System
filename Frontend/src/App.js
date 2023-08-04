@@ -6,6 +6,7 @@ import Dashboard from './pages/Dashboard.jsx';
 import Customers from './pages/Customers';
 import Product from './pages/Product.jsx';
 import Orders from './pages/Orders.jsx';
+import Inventory from './pages/Inventory';
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/customers" element={<Customers />} />
           <Route path="/product" element={<Product />} />
+          <Route path="/inventory" element={<Inventory />} />
           <Route path="/orders" element={<Orders />} />
         </Routes>
       </Sidebar>

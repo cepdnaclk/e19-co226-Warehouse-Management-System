@@ -11,12 +11,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor//constructor
 public class Inventory {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long SKU;
     private int quantityInStock;
     private String location;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name = "productID", referencedColumnName = "productID")
     private Product product;
 }

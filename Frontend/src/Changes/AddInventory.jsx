@@ -35,8 +35,14 @@ const AddInventory = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        const { SKU, quantityInStock, location, product } = formData;
+
         try {
-            await axios.post(variables.API_URL + '/api/inventory', formData);
+            await axios.post(variables.API_URL + `/api/inventory/${SKU}/${product}`, {
+                'quantityInStock':quantityInStock,
+                'location':location
+            });
+            console.log(product);
             setFormData({
                 SKU: '',
                 quantityInStock: '',
@@ -56,21 +62,23 @@ const AddInventory = () => {
                 <div>
                     <label htmlFor="SKU">SKU:</label>
                     <input
-                        type="text"
+                        type="number"
                         id="SKU"
                         name="SKU"
                         value={formData.SKU}
                         onChange={handleInputChange}
+                        required
                     />
                 </div>
                 <div>
                     <label htmlFor="quantityInStock">Quantity in Stock:</label>
                     <input
-                        type="text"
+                        type="number"
                         id="quantityInStock"
                         name="quantityInStock"
                         value={formData.quantityInStock}
                         onChange={handleInputChange}
+                        required
                     />
                 </div>
                 <div>
@@ -90,10 +98,11 @@ const AddInventory = () => {
                         name="product"
                         value={formData.product}
                         onChange={handleInputChange}
+                        required
                     >
                         <option value="">Select a product</option>
                         {products.map((product) => (
-                            <option key={product.productID} value={product}>
+                            <option key={product.productID} value={product.productID}>
                                 {product.productName}
                             </option>
                         ))}

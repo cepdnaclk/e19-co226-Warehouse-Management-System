@@ -15,7 +15,8 @@ public class Inventory {
     private int quantityInStock;
     private String location;
 
-    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @ManyToOne (fetch = FetchType.EAGER)
     @JoinColumn(name = "productID", referencedColumnName = "productID")
     private Product product;
+
 }

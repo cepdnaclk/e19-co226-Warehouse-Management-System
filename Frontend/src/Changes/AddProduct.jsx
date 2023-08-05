@@ -46,6 +46,7 @@ const AddProduct = () => {
                         name="productName"
                         value={formData.productName}
                         onChange={handleInputChange}
+                        required
                     />
                 </div>
                 <div>
@@ -56,6 +57,7 @@ const AddProduct = () => {
                         name="category"
                         value={formData.category}
                         onChange={handleInputChange}
+                        required
                     />
                 </div>
                 <div>
@@ -71,11 +73,12 @@ const AddProduct = () => {
                 <div>
                     <label htmlFor="sellingPrice">Selling Price:</label>
                     <input
-                        type="text"
+                        type="number"
                         id="sellingPrice"
                         name="sellingPrice"
                         value={formData.sellingPrice}
                         onChange={handleInputChange}
+                        required
                     />
                 </div>
                 <button type="submit">Add Product</button>

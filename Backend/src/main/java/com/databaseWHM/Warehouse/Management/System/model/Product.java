@@ -16,5 +16,5 @@ public class Product {
     private String productName;
     private String category;
     private String description;
-    private String sellingPrice;
+    private long sellingPrice;
 }

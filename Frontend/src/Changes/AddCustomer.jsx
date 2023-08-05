@@ -50,6 +50,7 @@ const AddCustomer = () => {
                         name="customerName"
                         value={formData.customerName}
                         onChange={handleInputChange}
+                        required
                     />
                 </div>
                 <div>
@@ -90,6 +91,7 @@ const AddCustomer = () => {
                         name="phoneNumber"
                         value={formData.phoneNumber}
                         onChange={handleInputChange}
+                        required
                     />
                 </div>
                 <div>

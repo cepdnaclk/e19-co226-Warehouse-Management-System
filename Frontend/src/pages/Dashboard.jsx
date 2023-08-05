@@ -1,12 +1,11 @@
 import React from 'react';
-import AddInventory from '../Changes/AddInventory';
 
-const Inventory = () => {
+const Dashboard = () => {
     return (
         <div>
-            <AddInventory/>
+            <h1>dashboard page</h1>
         </div>
     );
 };
 
-export default Inventory;
+export default Dashboard;

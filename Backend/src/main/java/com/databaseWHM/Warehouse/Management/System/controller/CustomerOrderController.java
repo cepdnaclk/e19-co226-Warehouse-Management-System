@@ -11,7 +11,8 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/customerorders")
+@CrossOrigin("*")
+@RequestMapping("/api/orders")
 public class CustomerOrderController {
 
     private final CustomerOrderRepository customerOrderRepository;
@@ -37,6 +38,7 @@ public class CustomerOrderController {
     // Create or Update a customer order
     @PostMapping
     public ResponseEntity<CustomerOrder> createOrUpdateCustomerOrder(@RequestBody CustomerOrder customerOrder) {
+        System.out.println(customerOrder);
         CustomerOrder savedCustomerOrder = customerOrderRepository.save(customerOrder);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedCustomerOrder);
     }

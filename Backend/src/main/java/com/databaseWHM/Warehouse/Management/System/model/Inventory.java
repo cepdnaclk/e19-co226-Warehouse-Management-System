@@ -19,4 +19,5 @@ public class Inventory {
     @JoinColumn(name = "productID", referencedColumnName = "productID")
     private Product product;
 
+
 }

@@ -1,12 +1,19 @@
 package com.databaseWHM.Warehouse.Management.System.controller;
 
 import com.databaseWHM.Warehouse.Management.System.model.CustomerOrder;
+import com.databaseWHM.Warehouse.Management.System.model.OrderItem;
+import com.databaseWHM.Warehouse.Management.System.model.Product;
 import com.databaseWHM.Warehouse.Management.System.repository.CustomerOrderRepository;
+import com.databaseWHM.Warehouse.Management.System.repository.InventoryRepository;
+import com.databaseWHM.Warehouse.Management.System.repository.ProductRepository;
+import com.databaseWHM.Warehouse.Management.System.service.InventoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,10 +23,14 @@ import java.util.Optional;
 public class CustomerOrderController {
 
     private final CustomerOrderRepository customerOrderRepository;
+    private final ProductRepository productRepository;
+    private final InventoryService inventoryService;
 
     @Autowired
-    public CustomerOrderController(CustomerOrderRepository customerOrderRepository) {
+    public CustomerOrderController(CustomerOrderRepository customerOrderRepository, ProductRepository productRepository, InventoryRepository inventoryRepository, InventoryService inventoryService) {
         this.customerOrderRepository = customerOrderRepository;
+        this.productRepository = productRepository;
+        this.inventoryService = inventoryService;
     }
 
     // Get all customer orders
@@ -38,10 +49,29 @@ public class CustomerOrderController {
     // Create or Update a customer order
     @PostMapping
     public ResponseEntity<CustomerOrder> createOrUpdateCustomerOrder(@RequestBody CustomerOrder customerOrder) {
-        System.out.println(customerOrder);
+        customerOrder.setOrderDate(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+
+        // Check inventory before accepting the order
+        for (OrderItem orderItem : customerOrder.getOrderItems()) {
+            Product product =orderItem.getProduct();
+            if (product == null) {
+                return ResponseEntity.badRequest().body(null); // Product not found, return an error
+            }
+            if (inventoryService.getAvailableQuantity(product) < orderItem.getQuantityOrdered()) {
+                return ResponseEntity.badRequest().body(null); // Insufficient inventory, return an error
+            }
+            // Update the available quantity of the product in the database
+        }
+        for (OrderItem orderItem : customerOrder.getOrderItems()) {
+            Product product =orderItem.getProduct();
+            // Update the available quantity of the product in the database
+            inventoryService.removeQuantity(product,orderItem.getQuantityOrdered());
+            productRepository.save(product);
+        }
         CustomerOrder savedCustomerOrder = customerOrderRepository.save(customerOrder);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedCustomerOrder);
     }
+
 
     // Update an existing customer order
     @PutMapping("/{id}")

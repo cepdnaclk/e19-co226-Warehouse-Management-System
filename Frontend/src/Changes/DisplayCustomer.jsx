@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { variables } from '../Variables';
 
-const CustomerGrid = () => {
+const CustomerGrid = ({ shouldRefresh }) => {
     const [customers, setCustomers] = useState([]);
     const [deleteCustomerId, setDeleteCustomerId] = useState(null);
 
@@ -17,7 +17,7 @@ const CustomerGrid = () => {
 
     useEffect(() => {
         fetchCustomers();
-    }, []);
+    }, [shouldRefresh]);
 
     const handleDeleteClick = (customerId) => {
         setDeleteCustomerId(customerId);

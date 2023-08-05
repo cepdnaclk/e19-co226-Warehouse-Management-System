@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { variables } from '../Variables';
 
-const InventoryGrid = () => {
+const InventoryGrid = ({ shouldRefresh }) => {
     const [inventory, setInventory] = useState([]);
     const [deleteInventoryId, setDeleteInventoryId] = useState(null);
 
@@ -17,7 +17,7 @@ const InventoryGrid = () => {
 
     useEffect(() => {
         fetchInventory();
-    }, []);
+    }, [shouldRefresh]);
 
     const handleDeleteClick = (inventoryId) => {
         setDeleteInventoryId(inventoryId);

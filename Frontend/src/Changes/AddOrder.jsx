@@ -2,14 +2,16 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { variables } from '../Variables';
 
-const AddOrder = () => {
+const AddOrder = ({ onAddOrder }) => {
   const [formData, setFormData] = useState({
     customerId: '',
-    products: [],
+    productID: '',
+    quantity: 1,
   });
 
   const [customers, setCustomers] = useState([]);
   const [products, setProducts] = useState([]);
+  const [orderItems, setOrderItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
 
   // Fetch customers and products on component mount
@@ -31,11 +33,7 @@ const AddOrder = () => {
   const fetchProducts = async () => {
     try {
       const response = await axios.get(variables.API_URL + '/api/products');
-      const productsWithQuantity = response.data.map((product) => ({
-        ...product,
-        quantity: 1,
-      }));
-      setProducts(productsWithQuantity);
+      setProducts(response.data);
     } catch (error) {
       console.error('Error fetching products:', error);
     }
@@ -49,50 +47,63 @@ const AddOrder = () => {
   };
 
   const handleProductChange = (event) => {
-    const productId = event.target.value;
-    const product = products.find((p) => p.productId === parseInt(productId));
-    if (product) {
-      setFormData((prevData) => ({
-        ...prevData,
-        products: [...prevData.products, { ...product, quantity: 1 }],
-      }));
-    }
+    const productID = event.target.value;
+    setFormData((prevData) => ({
+      ...prevData,
+      productID,
+    }));
   };
 
-  const handleQuantityChange = (event, productId) => {
+  const handleQuantityChange = (event) => {
     const quantity = parseInt(event.target.value);
     setFormData((prevData) => ({
       ...prevData,
-      products: prevData.products.map((product) =>
-        product.productId === productId ? { ...product, quantity } : product
-      ),
+      quantity,
     }));
   };
 
-  useEffect(() => {
-    const totalPrice = formData.products.reduce(
-      (total, product) => total + product.sellingPrice * product.quantity,
-      0
-    );
-    setTotalPrice(totalPrice);
-  }, [formData.products]);
+
+  const calculateProductPrice = (product, quantity) => {
+    return product.sellingPrice * quantity;
+  };
 
   const handleAddToTable = () => {
-    setFormData((prevData) => ({
-      ...prevData,
-      products: [...prevData.products, ...products.filter((p) => p.quantity > 0)],
-    }));
+
+    const selectedProduct = products.find(
+      // (p) => console.log( formData.productID));
+
+      (p) => p.productID=== parseInt(formData.productID));
+    if (selectedProduct) {
+      const newOrderItem = { product: selectedProduct, quantity: formData.quantity };
+      setOrderItems((prevItems) => [...prevItems, newOrderItem]);
+      setTotalPrice((prevTotal) => prevTotal + calculateProductPrice(selectedProduct, formData.quantity));
+    }
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await axios.post(variables.API_URL + '/api/orders', formData);
+      const customerOrder = {
+        price:totalPrice,
+        customer:customers.find(
+          // (p) => console.log(p.customerID)),
+    
+          (p) => p.customerID=== parseInt(formData.customerId)),
+        orderItems: orderItems.map((item) => ({
+          product: item.product,
+          quantityOrdered: item.quantity,
+          unitPrice: item.product.sellingPrice,
+        })),
+      };
+      await axios.post(variables.API_URL + '/api/orders', customerOrder);
       setFormData({
         customerId: '',
-        products: [],
+        productID: '',
+        quantity: 1,
       });
+      setOrderItems([]);
       setTotalPrice(0);
+      onAddOrder();
       alert('Order successfully added!');
     } catch (error) {
       alert('Order adding failed!');
@@ -114,18 +125,18 @@ const AddOrder = () => {
           >
             <option value="">Select a customer</option>
             {customers.map((customer) => (
-              <option key={customer.customerId} value={customer.customerId}>
+              <option key={customer.customerID} value={customer.customerID}>
                 {customer.customerName}
               </option>
             ))}
           </select>
         </div>
         <div>
-          <label htmlFor="productId">Select Product:</label>
-          <select id="productId" name="productId" onChange={handleProductChange} required>
+          <label htmlFor="productID">Select Product:</label>
+          <select id="productID" name="productID" onChange={handleProductChange} required>
             <option value="">Select a product</option>
             {products.map((product) => (
-              <option key={product.productId} value={product.productId}>
+              <option key={product.productID} value={product.productID}>
                 {product.productName}
               </option>
             ))}
@@ -133,13 +144,10 @@ const AddOrder = () => {
           <input
             type="number"
             name="quantity"
-            value={products.find((p) => p.productId === parseInt(formData.productId))?.quantity || 1}
-            onChange={(e) =>
-              handleQuantityChange(
-                { target: { value: parseInt(e.target.value) } },
-                parseInt(formData.productId)
-              )
-            }
+            value={formData.quantity}
+            onChange={handleQuantityChange}
+            min="1"
+            required
           />
           <button type="button" onClick={handleAddToTable}>
             Add to Table
@@ -154,11 +162,11 @@ const AddOrder = () => {
             </tr>
           </thead>
           <tbody>
-            {formData.products.map((product) => (
-              <tr key={product.productId}>
-                <td>{product.productName}</td>
-                <td>{product.quantity}</td>
-                <td>${product.sellingPrice * product.quantity}</td>
+            {orderItems.map((item) => (
+              <tr key={item.product.productID}>
+                <td>{item.product.productName}</td>
+                <td>{item.quantity}</td>
+                <td>${calculateProductPrice(item.product, item.quantity)}</td>
               </tr>
             ))}
           </tbody>
@@ -172,4 +180,4 @@ const AddOrder = () => {
   );
 };
 
-export default AddOrder; 
+export default AddOrder;

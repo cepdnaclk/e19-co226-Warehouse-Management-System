@@ -11,8 +11,8 @@ public class OrderItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderItemId;
 
-    @ManyToOne
-    @JoinColumn(name = "productId")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "productID")
     private Product product;
 
     private int quantityOrdered;

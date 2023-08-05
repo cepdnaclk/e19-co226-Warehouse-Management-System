@@ -31,6 +31,11 @@ const Sidebar = ({children}) => {
             icon:<FaShoppingBag/>
         },
         {
+            path:"/inventory",
+            name:"Inventory",
+            icon:<FaCommentAlt/>
+        },
+        {
             path:"/orders",
             name:"Orders",
             icon:<FaThList/>

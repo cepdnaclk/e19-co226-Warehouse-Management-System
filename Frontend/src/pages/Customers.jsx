@@ -1,7 +1,6 @@
 import React from 'react';
 import AddCustomer from '../Changes/AddCustomer';
 import DisplayCustomer from '../Changes/DisplayCustomer';
-import DeleteCustomer from '../Changes/DeleteCustomer';
 import './customers.css'; 
 
 function Customers() {
@@ -13,9 +12,7 @@ function Customers() {
       <div className="column">
         <DisplayCustomer />
       </div>
-      <div className="column">
-        <DeleteCustomer />
-      </div>
+      
     </div>
   );
 }

@@ -1,10 +1,18 @@
 import React from 'react';
+import AddProduct from '../Changes/AddProduct';
+import DisplayProduct from '../Changes/DisplayProduct';
 
 const Product = () => {
     return (
-        <div>
-            <h1>product page</h1>
+        <div className="container">
+        <div className="column">
+          <AddProduct />
         </div>
+
+        <div className="column">
+          <DisplayProduct />
+        </div>
+      </div>
     );
 };
 

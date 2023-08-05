@@ -4,7 +4,7 @@ import AddInventory from '../Changes/AddInventory';
 const Inventory = () => {
     return (
         <div>
-            <AddInventory/>
+            <AddInventory />
         </div>
     );
 };

@@ -1,18 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AddCustomer from '../Changes/AddCustomer';
 import DisplayCustomer from '../Changes/DisplayCustomer';
 import './customers.css'; 
 
 function Customers() {
+  const [shouldRefresh, setShouldRefresh] = useState(false); // Step 3: State to trigger refresh
+
+  const handleAddCustomer = () => {
+    setShouldRefresh(!shouldRefresh); // Step 3: Toggle the state to trigger refresh
+  };
+
   return (
     <div className="container">
       <div className="column">
-        <AddCustomer />
+        {/* Step 3: Pass the callback to AddCustomer */}
+        <AddCustomer onAddCustomer={handleAddCustomer} />
       </div>
       <div className="column">
-        <DisplayCustomer />
+        {/* Step 3: Pass the shouldRefresh prop to DisplayCustomer */}
+        <DisplayCustomer shouldRefresh={shouldRefresh} />
       </div>
-      
     </div>
   );
 }

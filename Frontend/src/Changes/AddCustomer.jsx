@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { variables } from '../Variables';
 
-const AddCustomer = () => {
+const AddCustomer = ({ onAddCustomer }) => {
     const [formData, setFormData] = useState({
         customerName: '',
         addressLine1: '',
@@ -32,6 +32,7 @@ const AddCustomer = () => {
                 phoneNumber: '',
                 email: '',
             });
+            onAddCustomer();
             alert('Customer successfully added!');
         } catch (error) {
             alert('Customer adding failed!');
@@ -111,4 +112,3 @@ const AddCustomer = () => {
 };
 
 export default AddCustomer;
-

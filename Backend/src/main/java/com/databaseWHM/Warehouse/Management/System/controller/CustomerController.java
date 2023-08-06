@@ -39,7 +39,6 @@ public class CustomerController {
     @PostMapping
     public ResponseEntity<Customer> createOrUpdateCustomer(@RequestBody Customer customer) {
         Customer savedCustomer = customerRepository.save(customer);
-        System.out.println("done");
         return ResponseEntity.status(HttpStatus.CREATED).body(savedCustomer);
     }
 

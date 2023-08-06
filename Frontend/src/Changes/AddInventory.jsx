@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { variables } from '../Variables';
 
-const AddInventory = () => {
+const AddInventory = ({ onAddInventory }) => {
     const [formData, setFormData] = useState({
         SKU: '',
         quantityInStock: '',
@@ -42,13 +42,14 @@ const AddInventory = () => {
                 'quantityInStock':quantityInStock,
                 'location':location
             });
-            console.log(product);
+            // console.log(product);
             setFormData({
                 SKU: '',
                 quantityInStock: '',
                 location: '',
                 product: '',
             });
+            onAddInventory();
             alert('Inventory successfully added!');
         } catch (error) {
             alert('Inventory adding failed!');

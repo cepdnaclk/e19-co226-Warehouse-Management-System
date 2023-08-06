@@ -1,73 +1,96 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { variables } from '../Variables';
 
-function DisplayOrder() {
-  const [orderId, setOrderId] = useState('');
-  const [orderDetails, setOrderDetails] = useState(null);
-  const [allOrders, setAllOrders] = useState([]);
+const OrderGrid = ({ shouldRefresh }) => {
+  const [orders, setOrders] = useState([]);
+  const [deleteOrderId, setDeleteOrderId] = useState(null);
 
-  const handleFetchOrder = (e) => {
-    e.preventDefault();
-
-    // Replace 'your-api-endpoint' with the actual API endpoint to fetch the order details.
-    axios.get(`your-api-endpoint/${orderId}`)
-      .then((response) => {
-        setOrderDetails(response.data); // Assuming the response.data contains the order details.
-      })
-      .catch((error) => {
-        console.error('Error fetching order:', error);
-        setOrderDetails(null); // Reset order details if an error occurs.
-      });
+  const fetchOrders = async () => {
+    try {
+      const response = await axios.get(variables.API_URL + '/api/orders');
+      setOrders(response.data);
+    } catch (error) {
+      console.error('Error fetching orders:', error);
+    }
   };
 
-  const handleFetchAllOrders = () => {
-    // Replace 'your-api-endpoint' with the actual API endpoint to fetch all orders from the backend.
-    axios.get('your-api-endpoint')
-      .then((response) => {
-        setAllOrders(response.data); // Assuming the response.data is an array of all orders.
-      })
-      .catch((error) => {
-        console.error('Error fetching all orders:', error);
-        setAllOrders([]); // Reset all orders if an error occurs.
-      });
+  useEffect(() => {
+    fetchOrders();
+  }, [shouldRefresh]);
+
+  const handleDeleteClick = (orderId) => {
+    setDeleteOrderId(orderId);
+  };
+
+  const handleDeleteConfirmation = async (orderId) => {
+    try {
+      await axios.delete(variables.API_URL + '/api/orders/' + orderId);
+      fetchOrders(); // Refresh the order list after deleting
+    } catch (error) {
+      console.error('Error deleting order:', error);
+    }
+
+    setDeleteOrderId(null); // Reset deleteOrderId after handling the deletion
+  };
+
+  const confirmDelete = (orderId) => {
+    const shouldDelete = window.confirm('Are you sure you want to delete this order?');
+    if (shouldDelete) {
+      handleDeleteConfirmation(orderId);
+    }
   };
 
   return (
     <div>
-      <h2>Display Order</h2>
-      <form onSubmit={handleFetchOrder}>
-      <label htmlFor="orderId">Enter Order ID:</label>
-        <input
-          type="text"
-          id="orderId"
-          value={orderId}
-          onChange={(e) => setOrderId(e.target.value)}
-          required
-        />
-        <button type="submit">Fetch Order</button>
-      </form>
-
-      {orderDetails && (
-        <div>
-          {/* Display the fetched order details */}
-        </div>
-      )}
-
-      <h2>All Orders</h2>
-      <button onClick={handleFetchAllOrders}>Fetch All Orders</button>
-      {allOrders.length > 0 ? (
-        <ul>
-          {allOrders.map((order) => (
-            <li key={order.orderId}>
-              Order ID: {order.orderId}, Products: {order.productsOrdered}, Price: {order.price}
-            </li>
+      <h1>Order Information</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Price</th>
+            <th>Order Date</th>
+            <th>Customer ID</th>
+            <th>Order Items</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {orders.map((order) => (
+            <tr key={order.orderID}>
+              <td>{order.orderID}</td>
+              <td>{order.price}</td>
+              <td>{order.orderDate}</td>
+              <td>{order.customer.customerID}</td>
+              <td>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Product</th>
+                      <th>Quantity</th>
+                      <th>Unit Price</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {order.orderItems.map((item) => (
+                      <tr key={item.orderItemId}>
+                        <td>{item.product.productName}</td>
+                        <td>{item.quantityOrdered}</td>
+                        <td>{item.unitPrice}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </td>
+              <td>
+                <button onClick={() => confirmDelete(order.orderID)}>Delete</button>
+              </td>
+            </tr>
           ))}
-        </ul>
-      ) : (
-        <p>No orders available. Click "Fetch All Orders" to fetch and display all orders.</p>
-      )}
+        </tbody>
+      </table>
     </div>
   );
-}
+};
 
-export default DisplayOrder;
+export default OrderGrid;

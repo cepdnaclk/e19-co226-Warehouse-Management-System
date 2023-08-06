@@ -18,6 +18,7 @@ public class CustomerOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderID;
+    private long price;
     private String orderDate;
 
     @ManyToOne

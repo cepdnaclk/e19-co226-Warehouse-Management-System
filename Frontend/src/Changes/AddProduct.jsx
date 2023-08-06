@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { variables } from '../Variables';
 
-const AddProduct = () => {
+const AddProduct = ({ onAddProduct }) => {
     const [formData, setFormData] = useState({
         productName: '',
         category: '',
@@ -28,6 +28,7 @@ const AddProduct = () => {
                 description: '',
                 sellingPrice: '',
             });
+            onAddProduct();
             alert('Product successfully added!');
         } catch (error) {
             alert('Product adding failed!');

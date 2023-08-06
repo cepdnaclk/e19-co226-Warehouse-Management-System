@@ -1,0 +1,91 @@
+/* AddOrder.css */
+.add-order-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+  
+  .add-order-container h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .add-order-container form div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .add-order-container label {
+    font-size: 16px;
+    color: #555;
+    margin-right: 5px;
+  }
+  
+  .add-order-container select,
+  .add-order-container input[type='number'] {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .add-order-container button[type='button'] {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .add-order-container button[type='button']:hover {
+    background-color: #0056b3;
+  }
+  
+  .add-order-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .add-order-container th,
+  .add-order-container td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
+  }
+  
+  .add-order-container th {
+    background-color: #f9f9f9;
+  }
+  
+  .add-order-container strong {
+    font-size: 18px;
+    color: #555;
+  }
+  
+  .add-order-container button[type='submit'] {
+    padding: 10px 20px;
+    background-color: #00cc66;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+  }
+  
+  .add-order-container button[type='submit']:hover {
+    background-color: #00b359;
+  }
+  

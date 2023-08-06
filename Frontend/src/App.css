@@ -3,6 +3,16 @@
     padding:0;
     text-decoration: none;
 }
+body {
+    margin: 0;
+    background: linear-gradient(
+        106.37deg,
+        #ffe1bc 29.63%,
+        #ffcfd1 51.55%,
+        #f3c6f1 90.85%
+    );
+   
+}
 .container{
     display:flex;
 }
@@ -11,11 +21,12 @@ main{
     padding: 20px;
 }
 .sidebar{
-    background: #000;
-    color: #fff;
+    background: #f799a354;
+    color: #000;
     height: 100vh;
     width: 200px;
     transition: all 0.5s;
+    border-radius : 2rem
 }
 .top_section{
     display: flex;

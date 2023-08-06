@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { variables } from '../Variables';
+import './CustomerGrid.css';
 
 const CustomerGrid = ({ shouldRefresh }) => {
     const [customers, setCustomers] = useState([]);
@@ -43,8 +44,8 @@ const CustomerGrid = ({ shouldRefresh }) => {
 
     return (
         <div>
-            <h1>Customer Information</h1>
-            <table>
+            <h1 className='header'>Customer Information</h1>
+            <table className='table'>
                 <thead>
                     <tr>
                         <th>Customer ID</th>

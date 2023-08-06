@@ -6,7 +6,8 @@ import {
     FaRegChartBar,
     FaCommentAlt,
     FaShoppingBag,
-    FaThList
+    FaThList,
+    FaCubes
 }from "react-icons/fa";
 import { NavLink } from 'react-router-dom';
 
@@ -33,7 +34,7 @@ const Sidebar = ({children}) => {
         {
             path:"/inventory",
             name:"Inventory",
-            icon:<FaCommentAlt/>
+            icon:<FaCubes/>
         },
         {
             path:"/orders",
@@ -43,7 +44,7 @@ const Sidebar = ({children}) => {
     ]
     return (
         <div className="container">
-           <div style={{width: isOpen ? "200px" : "50px"}} className="sidebar">
+           <div style={{width: isOpen ? "300px" : "50px"}} className="sidebar">
                <div className="top_section">
                    <h1 style={{display: isOpen ? "block" : "none"}} className="logo">Warehouse Management System</h1>
                    <div style={{marginLeft: isOpen ? "50px" : "0px"}} className="bars">

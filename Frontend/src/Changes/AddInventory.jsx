@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { variables } from '../Variables';
+import './AddInventory.css';
 
 const AddInventory = ({ onAddInventory }) => {
     const [formData, setFormData] = useState({

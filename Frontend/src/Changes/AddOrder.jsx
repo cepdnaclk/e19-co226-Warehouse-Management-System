@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { variables } from '../Variables';
+import './AddOrder.css';
 
 const AddOrder = ({ onAddOrder }) => {
   const [formData, setFormData] = useState({
@@ -111,9 +112,9 @@ const AddOrder = ({ onAddOrder }) => {
   };
 
   return (
-    <div>
+    <div className='add-order-container'>
       <h1>Add Order</h1>
-      <form onSubmit={handleSubmit}>
+      <form className='order-form'onSubmit={handleSubmit}>
         <div>
           <label htmlFor="customerId">Select Customer:</label>
           <select
@@ -153,7 +154,7 @@ const AddOrder = ({ onAddOrder }) => {
             Add to Table
           </button>
         </div>
-        <table>
+        <table className='order-items-table'>
           <thead>
             <tr>
               <th>Product Name</th>
@@ -171,10 +172,10 @@ const AddOrder = ({ onAddOrder }) => {
             ))}
           </tbody>
         </table>
-        <div>
+        <div className='total-price'>
           <strong>Total Price: ${totalPrice}</strong>
         </div>
-        <button type="submit">Place Order</button>
+        <button type="submit" className='place-order-button'>Place Order</button>
       </form>
     </div>
   );

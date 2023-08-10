@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import AddCustomer from '../Changes/AddCustomer';
 import DisplayCustomer from '../Changes/DisplayCustomer';
-import './customers.css'; 
 
 function Customers() {
   const [shouldRefresh, setShouldRefresh] = useState(false); // Step 3: State to trigger refresh

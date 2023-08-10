@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { variables } from '../Variables';
+import './AddCustomer.css';
 
 const AddCustomer = ({ onAddCustomer }) => {
     const [formData, setFormData] = useState({
@@ -40,9 +41,9 @@ const AddCustomer = ({ onAddCustomer }) => {
     };
 
     return (
-        <div>
-            <h1>Customers</h1>
-            <form onSubmit={handleSubmit}>
+        <div className='add-customer-container'>
+            <h1>Add New Customer</h1>
+            <form className='customer-form' onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="customerName">Customer Name:</label>
                     <input
@@ -105,7 +106,7 @@ const AddCustomer = ({ onAddCustomer }) => {
                         onChange={handleInputChange}
                     />
                 </div>
-                <button type="submit">Add Customer</button>
+                <button type="submit" className='add-customer-button'>Add Customer</button>
             </form>
         </div>
     );

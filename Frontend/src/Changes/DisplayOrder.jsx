@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { variables } from '../Variables';
+import './OrderGrid.css';
 
-const OrderGrid = ({ shouldRefresh }) => {
+const DisplayOrder = ({ shouldRefresh }) => {
   const [orders, setOrders] = useState([]);
   const [deleteOrderId, setDeleteOrderId] = useState(null);
 
@@ -42,9 +43,9 @@ const OrderGrid = ({ shouldRefresh }) => {
   };
 
   return (
-    <div>
+    <div className='order-grid-container'>
       <h1>Order Information</h1>
-      <table>
+      <table className='order-table'>
         <thead>
           <tr>
             <th>Order ID</th>
@@ -93,4 +94,4 @@ const OrderGrid = ({ shouldRefresh }) => {
   );
 };
 
-export default OrderGrid;
+export default DisplayOrder;

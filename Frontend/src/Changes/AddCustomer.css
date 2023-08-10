@@ -1,0 +1,30 @@
+
+.add-customer-container {
+    text-align: center;
+    padding: 20px;
+}
+
+.customer-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.customer-form > div {
+    margin-bottom: 10px;
+}
+
+.add-customer-button {
+    background-color: #007bff; 
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-customer-button:hover {
+    background-color: #0056b3; 
+}

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { variables } from '../Variables';
 import './CustomerGrid.css';
 
-const CustomerGrid = ({ shouldRefresh }) => {
+const DisplayCustomer = ({ shouldRefresh }) => {
     const [customers, setCustomers] = useState([]);
     const [deleteCustomerId, setDeleteCustomerId] = useState(null);
 
@@ -81,4 +81,4 @@ const CustomerGrid = ({ shouldRefresh }) => {
     );
 };
 
-export default CustomerGrid;
+export default DisplayCustomer;

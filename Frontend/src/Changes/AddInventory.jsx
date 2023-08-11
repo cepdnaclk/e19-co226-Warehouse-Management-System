@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { variables } from '../Variables';
-import './AddInventory.css';
+import './Add.css';
 
-const AddInventory = ({ onAddInventory }) => {
+const AddInventory = ({ onAddInventory,onClosePopup}) => {
     const [formData, setFormData] = useState({
         SKU: '',
         quantityInStock: '',
@@ -56,11 +56,17 @@ const AddInventory = ({ onAddInventory }) => {
             alert('Inventory adding failed!');
         }
     };
+    const handlePopupClose = () => {
+        onClosePopup();
+      };
 
     return (
-        <div>
-            <h1>Add Inventory</h1>
-            <form onSubmit={handleSubmit}>
+        <div className='add-any-container'>
+        <div className='add-any-header'>
+        <h1>Add Inventory</h1>
+        <span className='close-icon' onClick={() => handlePopupClose()}>&times;</span>
+        </div>
+            <form className='any-form' onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="SKU">SKU:</label>
                     <input
@@ -110,10 +116,13 @@ const AddInventory = ({ onAddInventory }) => {
                         ))}
                     </select>
                 </div>
-                <button type="submit">Add Inventory</button>
+                <button type="submit" className='add-any-button'>Add Inventory</button>
             </form>
         </div>
     );
 };
 
 export default AddInventory;
+
+
+

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { variables } from '../Variables';
-import './AddOrder.css';
+import './Add.css';
 
-const AddOrder = ({ onAddOrder }) => {
+const AddOrder = ({ onAddOrder,onClosePopup }) => {
   const [formData, setFormData] = useState({
     customerId: '',
     productID: '',
@@ -111,10 +111,29 @@ const AddOrder = ({ onAddOrder }) => {
     }
   };
 
+  const handlePopupClose = () => {
+    onClosePopup();
+  // You can also clear the form data here if needed:
+  setFormData({
+    customerId: '',
+    productID: '',
+    quantity: 1,
+  });
+
+  // Clear any other state related to the popup:
+  setOrderItems([]);
+  setTotalPrice(0);
+  };
+  
   return (
-    <div className='add-order-container'>
-      <h1>Add Order</h1>
-      <form className='order-form'onSubmit={handleSubmit}>
+    <div className='add-any-container'>
+      
+    <div className='add-any-header'>
+    <h1>Add Order</h1>
+    <span className='close-icon' onClick={() => handlePopupClose()}>&times;</span>
+    </div>
+
+      <form className='any-form'onSubmit={handleSubmit}>
         <div>
           <label htmlFor="customerId">Select Customer:</label>
           <select
@@ -150,7 +169,7 @@ const AddOrder = ({ onAddOrder }) => {
             min="1"
             required
           />
-          <button type="button" onClick={handleAddToTable}>
+          <button type="button"className='add-any-button' onClick={handleAddToTable}>
             Add to Table
           </button>
         </div>
@@ -175,7 +194,7 @@ const AddOrder = ({ onAddOrder }) => {
         <div className='total-price'>
           <strong>Total Price: ${totalPrice}</strong>
         </div>
-        <button type="submit" className='place-order-button'>Place Order</button>
+        <button type="submit" className='add-any-button'>Place Order</button>
       </form>
     </div>
   );

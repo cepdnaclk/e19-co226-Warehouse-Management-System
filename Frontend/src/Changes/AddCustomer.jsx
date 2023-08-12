@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { variables } from '../Variables';
-import './AddCustomer.css';
+import './Add.css';
 
-const AddCustomer = ({ onAddCustomer }) => {
+const AddCustomer = ({ onAddCustomer,onClosePopup }) => {
     const [formData, setFormData] = useState({
         customerName: '',
         addressLine1: '',
@@ -39,11 +39,17 @@ const AddCustomer = ({ onAddCustomer }) => {
             alert('Customer adding failed!');
         }
     };
+    const handlePopupClose = () => {
+        onClosePopup();
+      };
 
     return (
-        <div className='add-customer-container'>
-            <h1>Add New Customer</h1>
-            <form className='customer-form' onSubmit={handleSubmit}>
+        <div className='add-any-container'>
+        <div className='add-any-header'>
+        <h1>Add Customer</h1>
+        <span className='close-icon' onClick={() => handlePopupClose()}>&times;</span>
+        </div>
+            <form className='any-form' onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="customerName">Customer Name:</label>
                     <input
@@ -106,7 +112,7 @@ const AddCustomer = ({ onAddCustomer }) => {
                         onChange={handleInputChange}
                     />
                 </div>
-                <button type="submit" className='add-customer-button'>Add Customer</button>
+                <button type="submit" className='add-any-button'>Add Customer</button>
             </form>
         </div>
     );

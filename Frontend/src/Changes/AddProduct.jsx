@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { variables } from '../Variables';
+import './Add.css';
 
-const AddProduct = ({ onAddProduct }) => {
+const AddProduct = ({ onAddProduct,onClosePopup }) => {
     const [formData, setFormData] = useState({
         productName: '',
         category: '',
@@ -34,11 +35,17 @@ const AddProduct = ({ onAddProduct }) => {
             alert('Product adding failed!');
         }
     };
+    const handlePopupClose = () => {
+        onClosePopup();
+      };
 
     return (
-        <div>
-            <h1>Add Product</h1>
-            <form onSubmit={handleSubmit}>
+        <div className='add-any-container'>
+        <div className='add-any-header'>
+        <h1>Add Product</h1>
+        <span className='close-icon' onClick={() => handlePopupClose()}>&times;</span>
+        </div>
+            <form className='any-form' onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="productName">Product Name:</label>
                     <input
@@ -82,7 +89,7 @@ const AddProduct = ({ onAddProduct }) => {
                         required
                     />
                 </div>
-                <button type="submit">Add Product</button>
+                <button type="submit" className='add-any-button'>Add Product</button>
             </form>
         </div>
     );

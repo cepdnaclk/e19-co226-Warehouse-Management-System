@@ -3,12 +3,17 @@ import axios from 'axios';
 import { variables } from '../Variables';
 
 const ProductGrid = ({ shouldRefresh }) => {
+    const storedToken = JSON.parse(localStorage.getItem('token'));
     const [products, setProducts] = useState([]);
     const [deleteProductId, setDeleteProductId] = useState(null);
 
     const fetchProducts = async () => {
         try {
-            const response = await axios.get(variables.API_URL + '/api/products');
+            const response = await axios.get(variables.API_URL + '/api/products',{
+                headers: {
+                    Authorization: `Bearer ${storedToken}` // Send token in the headers
+                }
+            });
             setProducts(response.data);
         } catch (error) {
             console.error('Error fetching products:', error);
@@ -25,7 +30,11 @@ const ProductGrid = ({ shouldRefresh }) => {
 
     const handleDeleteConfirmation = async (productId) => {
         try {
-            await axios.delete(variables.API_URL + '/api/products/' + productId);
+            await axios.delete(variables.API_URL + '/api/products/' + productId,{
+                headers: {
+                    Authorization: `Bearer ${storedToken}` // Send token in the headers
+                }
+            });
             fetchProducts(); // Refresh the product list after deleting
         } catch (error) {
             console.error('Error deleting product:', error);

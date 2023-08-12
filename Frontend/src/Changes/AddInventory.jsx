@@ -39,9 +39,14 @@ const AddInventory = ({ onAddInventory,onClosePopup}) => {
         const { SKU, quantityInStock, location, product } = formData;
 
         try {
+            const storedToken = JSON.parse(localStorage.getItem('token'));
             await axios.post(variables.API_URL + `/api/inventory/${SKU}/${product}`, {
                 'quantityInStock':quantityInStock,
                 'location':location
+            },{
+                headers: {
+                    Authorization: `Bearer ${storedToken}` // Send token in the headers
+                }
             });
             // console.log(product);
             setFormData({

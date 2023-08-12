@@ -4,6 +4,7 @@ import { variables } from '../Variables';
 import './Add.css';
 
 const AddOrder = ({ onAddOrder,onClosePopup }) => {
+  const storedToken = JSON.parse(localStorage.getItem('token'));
   const [formData, setFormData] = useState({
     customerId: '',
     productID: '',
@@ -24,7 +25,11 @@ const AddOrder = ({ onAddOrder,onClosePopup }) => {
   // Fetch list of customers from API
   const fetchCustomers = async () => {
     try {
-      const response = await axios.get(variables.API_URL + '/api/customers');
+      const response = await axios.get(variables.API_URL + '/api/customers',{
+        headers: {
+            Authorization: `Bearer ${storedToken}` // Send token in the headers
+        }
+    });
       setCustomers(response.data);
     } catch (error) {
       console.error('Error fetching customers:', error);
@@ -33,7 +38,11 @@ const AddOrder = ({ onAddOrder,onClosePopup }) => {
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get(variables.API_URL + '/api/products');
+      const response = await axios.get(variables.API_URL + '/api/products',{
+        headers: {
+            Authorization: `Bearer ${storedToken}` // Send token in the headers
+        }
+    });
       setProducts(response.data);
     } catch (error) {
       console.error('Error fetching products:', error);
@@ -96,7 +105,11 @@ const AddOrder = ({ onAddOrder,onClosePopup }) => {
           unitPrice: item.product.sellingPrice,
         })),
       };
-      await axios.post(variables.API_URL + '/api/orders', customerOrder);
+      await axios.post(variables.API_URL + '/api/orders', customerOrder,{
+        headers: {
+            Authorization: `Bearer ${storedToken}` // Send token in the headers
+        }
+    });
       setFormData({
         customerId: '',
         productID: '',

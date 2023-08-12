@@ -4,12 +4,17 @@ import { variables } from '../Variables';
 import './CustomerGrid.css';
 
 const DisplayCustomer = ({ shouldRefresh }) => {
+    const storedToken = JSON.parse(localStorage.getItem('token'));
     const [customers, setCustomers] = useState([]);
     const [deleteCustomerId, setDeleteCustomerId] = useState(null);
 
     const fetchCustomers = async () => {
         try {
-            const response = await axios.get(variables.API_URL + '/api/customers');
+            const response = await axios.get(variables.API_URL + '/api/customers',{
+                headers: {
+                    Authorization: `Bearer ${storedToken}` // Send token in the headers
+                }
+            });
             setCustomers(response.data);
         } catch (error) {
             console.error('Error fetching customers:', error);
@@ -26,7 +31,11 @@ const DisplayCustomer = ({ shouldRefresh }) => {
 
     const handleDeleteConfirmation = async (customerId) => {
         try {
-            await axios.delete(variables.API_URL + '/api/customers/' + customerId);
+            await axios.delete(variables.API_URL + '/api/customers/' + customerId,{
+                headers: {
+                    Authorization: `Bearer ${storedToken}` // Send token in the headers
+                }
+            });
             fetchCustomers(); // Refresh the customer list after deleting
         } catch (error) {
             console.error('Error deleting customer:', error);

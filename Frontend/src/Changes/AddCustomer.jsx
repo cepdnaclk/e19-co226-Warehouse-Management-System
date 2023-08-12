@@ -24,7 +24,13 @@ const AddCustomer = ({ onAddCustomer,onClosePopup }) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            await axios.post(variables.API_URL + '/api/customers', formData);
+            const storedToken = JSON.parse(localStorage.getItem('token'));
+            alert(storedToken);
+            await axios.post(variables.API_URL + '/api/customers', formData,{
+                headers: {
+                    Authorization: `Bearer ${storedToken}` // Send token in the headers
+                }
+            });
             setFormData({
                 customerName: '',
                 addressLine1: '',

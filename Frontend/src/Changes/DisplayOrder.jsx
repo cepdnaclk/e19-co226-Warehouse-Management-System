@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { variables } from '../Variables';
-import './OrderGrid.css';
+import './Display.css';
+
 
 const DisplayOrder = ({ shouldRefresh }) => {
   const storedToken = JSON.parse(localStorage.getItem('token'));

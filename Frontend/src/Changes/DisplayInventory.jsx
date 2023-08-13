@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { variables } from '../Variables';
+import './Display.css';
+
 
 const InventoryGrid = ({ shouldRefresh }) => {
     const storedToken = JSON.parse(localStorage.getItem('token'));
@@ -52,8 +54,8 @@ const InventoryGrid = ({ shouldRefresh }) => {
 
     return (
         <div>
-            <h1>Inventory Information</h1>
-            <table>
+            <h1 className='header'>Inventory Information</h1>
+            <table className='table'>
                 <thead>
                     <tr>
                         <th>SKU</th>

@@ -8,8 +8,6 @@ function Dashboard() {
     <div><div>
         <DisplayInventory shouldRefresh={shouldRefresh} />
         </div>
-        <div><DisplayCustomer shouldRefresh={shouldRefresh} />
-        </div>
         </div>
   )
 }

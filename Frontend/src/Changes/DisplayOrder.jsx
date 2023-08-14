@@ -60,7 +60,7 @@ const DisplayOrder = ({ shouldRefresh }) => {
         <thead>
           <tr>
             <th>Order ID</th>
-            <th>Price</th>
+            <th>Price (Rs.)</th>
             <th>Order Date</th>
             <th>Customer ID</th>
             <th>Order Items</th>
@@ -80,7 +80,7 @@ const DisplayOrder = ({ shouldRefresh }) => {
                     <tr>
                       <th>Product</th>
                       <th>Quantity</th>
-                      <th>Unit Price</th>
+                      <th>Unit Price (Rs.)</th>
                     </tr>
                   </thead>
                   <tbody>

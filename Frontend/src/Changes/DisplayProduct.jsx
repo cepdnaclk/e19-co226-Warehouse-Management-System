@@ -1,14 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { variables } from '../Variables';
+import './Display.css';
+
 
 const ProductGrid = ({ shouldRefresh }) => {
+    const storedToken = JSON.parse(localStorage.getItem('token'));
     const [products, setProducts] = useState([]);
     const [deleteProductId, setDeleteProductId] = useState(null);
 
     const fetchProducts = async () => {
         try {
-            const response = await axios.get(variables.API_URL + '/api/products');
+            const response = await axios.get(variables.API_URL + '/api/products',{
+                headers: {
+                    Authorization: `Bearer ${storedToken}` // Send token in the headers
+                }
+            });
             setProducts(response.data);
         } catch (error) {
             console.error('Error fetching products:', error);
@@ -25,7 +32,11 @@ const ProductGrid = ({ shouldRefresh }) => {
 
     const handleDeleteConfirmation = async (productId) => {
         try {
-            await axios.delete(variables.API_URL + '/api/products/' + productId);
+            await axios.delete(variables.API_URL + '/api/products/' + productId,{
+                headers: {
+                    Authorization: `Bearer ${storedToken}` // Send token in the headers
+                }
+            });
             fetchProducts(); // Refresh the product list after deleting
         } catch (error) {
             console.error('Error deleting product:', error);
@@ -43,8 +54,8 @@ const ProductGrid = ({ shouldRefresh }) => {
 
     return (
         <div>
-            <h1>Product Information</h1>
-            <table>
+            <h1 className='header'>Product Information</h1>
+            <table className='table'>
                 <thead>
                     <tr>
                         <th>Product ID</th>

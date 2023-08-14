@@ -1,14 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { variables } from '../Variables';
+import './Display.css';
+
 
 const InventoryGrid = ({ shouldRefresh }) => {
+    const storedToken = JSON.parse(localStorage.getItem('token'));
     const [inventory, setInventory] = useState([]);
     const [deleteInventoryId, setDeleteInventoryId] = useState(null);
 
     const fetchInventory = async () => {
         try {
-            const response = await axios.get(variables.API_URL + '/api/inventory');
+            const response = await axios.get(variables.API_URL + '/api/inventory',{
+                headers: {
+                    Authorization: `Bearer ${storedToken}` // Send token in the headers
+                }
+            });
             setInventory(response.data);
         } catch (error) {
             console.error('Error fetching inventory:', error);
@@ -25,7 +32,11 @@ const InventoryGrid = ({ shouldRefresh }) => {
 
     const handleDeleteConfirmation = async (inventoryId) => {
         try {
-            await axios.delete(variables.API_URL + '/api/inventory/' + inventoryId);
+            await axios.delete(variables.API_URL + '/api/inventory/' + inventoryId,{
+                headers: {
+                    Authorization: `Bearer ${storedToken}` // Send token in the headers
+                }
+            });
             fetchInventory(); // Refresh the inventory list after deleting
         } catch (error) {
             console.error('Error deleting inventory:', error);
@@ -43,8 +54,8 @@ const InventoryGrid = ({ shouldRefresh }) => {
 
     return (
         <div>
-            <h1>Inventory Information</h1>
-            <table>
+            <h1 className='header'>Inventory Information</h1>
+            <table className='table'>
                 <thead>
                     <tr>
                         <th>SKU</th>

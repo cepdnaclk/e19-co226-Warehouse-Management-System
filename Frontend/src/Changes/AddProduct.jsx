@@ -22,7 +22,12 @@ const AddProduct = ({ onAddProduct,onClosePopup }) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            await axios.post(variables.API_URL + '/api/products', formData);
+            const storedToken = JSON.parse(localStorage.getItem('token'));
+            await axios.post(variables.API_URL + '/api/products', formData,{
+                headers: {
+                    Authorization: `Bearer ${storedToken}` // Send token in the headers
+                }
+            });
             setFormData({
                 productName: '',
                 category: '',

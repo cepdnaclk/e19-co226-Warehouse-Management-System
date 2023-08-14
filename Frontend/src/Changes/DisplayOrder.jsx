@@ -1,15 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { variables } from '../Variables';
-import './OrderGrid.css';
+import './Display.css';
+
 
 const DisplayOrder = ({ shouldRefresh }) => {
+  const storedToken = JSON.parse(localStorage.getItem('token'));
+
   const [orders, setOrders] = useState([]);
   const [deleteOrderId, setDeleteOrderId] = useState(null);
 
   const fetchOrders = async () => {
     try {
-      const response = await axios.get(variables.API_URL + '/api/orders');
+      const response = await axios.get(variables.API_URL + '/api/orders',{
+        headers: {
+            Authorization: `Bearer ${storedToken}` // Send token in the headers
+        }
+    });
       setOrders(response.data);
     } catch (error) {
       console.error('Error fetching orders:', error);
@@ -26,7 +33,11 @@ const DisplayOrder = ({ shouldRefresh }) => {
 
   const handleDeleteConfirmation = async (orderId) => {
     try {
-      await axios.delete(variables.API_URL + '/api/orders/' + orderId);
+      await axios.delete(variables.API_URL + '/api/orders/' + orderId,{
+        headers: {
+            Authorization: `Bearer ${storedToken}` // Send token in the headers
+        }
+    });
       fetchOrders(); // Refresh the order list after deleting
     } catch (error) {
       console.error('Error deleting order:', error);

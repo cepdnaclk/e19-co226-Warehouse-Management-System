@@ -19,7 +19,12 @@ const AddInventory = ({ onAddInventory,onClosePopup}) => {
 
     const fetchProducts = async () => {
         try {
-            const response = await axios.get(variables.API_URL + '/api/products');
+            const storedToken = JSON.parse(localStorage.getItem('token'));
+            const response = await axios.get(variables.API_URL + '/api/products',{
+                headers: {
+                    Authorization: `Bearer ${storedToken}` // Send token in the headers
+                }
+            });
             setProducts(response.data);
         } catch (error) {
             console.error('Error fetching products:', error);

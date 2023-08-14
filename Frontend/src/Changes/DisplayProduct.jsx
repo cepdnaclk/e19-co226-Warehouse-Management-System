@@ -62,7 +62,7 @@ const ProductGrid = ({ shouldRefresh }) => {
                         <th>Product Name</th>
                         <th>Category</th>
                         <th>Description</th>
-                        <th>Selling Price</th>
+                        <th>Selling Price (Rs.)</th>
                         <th>Delete</th>
                     </tr>
                 </thead>

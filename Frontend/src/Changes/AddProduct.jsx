@@ -84,7 +84,7 @@ const AddProduct = ({ onAddProduct,onClosePopup }) => {
                     />
                 </div>
                 <div>
-                    <label htmlFor="sellingPrice">Selling Price:</label>
+                    <label htmlFor="sellingPrice">Selling Price(Rs.):</label>
                     <input
                         type="number"
                         id="sellingPrice"

@@ -199,13 +199,13 @@ const AddOrder = ({ onAddOrder,onClosePopup }) => {
               <tr key={item.product.productID}>
                 <td>{item.product.productName}</td>
                 <td>{item.quantity}</td>
-                <td>${calculateProductPrice(item.product, item.quantity)}</td>
+                <td>Rs.{calculateProductPrice(item.product, item.quantity)}</td>
               </tr>
             ))}
           </tbody>
         </table>
         <div className='total-price'>
-          <strong>Total Price: ${totalPrice}</strong>
+          <strong>Total Price: Rs.{totalPrice}</strong>
         </div>
         <button type="submit" className='add-any-button'>Place Order</button>
       </form>

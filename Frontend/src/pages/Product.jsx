@@ -30,6 +30,7 @@
 import React, { useState } from 'react';
 import AddProduct from '../Changes/AddProduct';
 import DisplayProduct from '../Changes/DisplayProduct';
+import './addbutton.css'
 
 const Product = () => {
   const [shouldRefresh, setShouldRefresh] = useState(false);
@@ -60,7 +61,7 @@ const Product = () => {
             </div>
       )}
       <div className="column">
-        <button onClick={toggleAddProductPopup}>Add Product</button>
+        <button className='add-button' onClick={toggleAddProductPopup}>Add Product</button>
         <DisplayProduct shouldRefresh={shouldRefresh} />
       </div>
     </div>

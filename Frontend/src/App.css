@@ -6,10 +6,7 @@
 body {
     margin: 0;
     background: linear-gradient(
-        106.37deg,
-        #ffe1bc 29.63%,
-        #ffcfd1 51.55%,
-        #f3c6f1 90.85%
+        to right, #dae2f8, #d6a4a4
     );
    
 }
@@ -43,7 +40,7 @@ main{
 }
 .link{
     display: flex;
-    color: #fff;
+    color: #791443;
     padding: 10px 15px;
     gap: 15px;
     transition: all 0.5s;

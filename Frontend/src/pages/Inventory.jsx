@@ -30,6 +30,7 @@
 import React, { useState } from 'react';
 import AddInventory from '../Changes/AddInventory';
 import DisplayInventory from '../Changes/DisplayInventory';
+import './addbutton.css'
 
 const Inventory = () => {
   const [shouldRefresh, setShouldRefresh] = useState(false);
@@ -60,7 +61,7 @@ const Inventory = () => {
             </div>
       )}
       <div className="column">
-        <button onClick={toggleAddInventoryPopup}>Add Inventory</button>
+        <button className='add-button' onClick={toggleAddInventoryPopup}>Add Inventory</button>
         <DisplayInventory shouldRefresh={shouldRefresh} />
       </div>
     </div>

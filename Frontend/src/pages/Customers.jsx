@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import AddCustomer from '../Changes/AddCustomer';
 import DisplayCustomer from '../Changes/DisplayCustomer';
 import './Customer.css';
+import './addbutton.css';
 // function Customers() {
 //   const [shouldRefresh, setShouldRefresh] = useState(false); // Step 3: State to trigger refresh
 
@@ -52,7 +53,7 @@ function Customers() {
           </div>
       </div>)}
       <div className="column">
-        <button onClick={toggleAddCustomerPopup}>Add Customer</button>
+        <button className='add-button' onClick={toggleAddCustomerPopup}>Add Customer</button>
         <DisplayCustomer shouldRefresh={shouldRefresh} />
       </div>
     </div>

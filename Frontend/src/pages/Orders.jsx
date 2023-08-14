@@ -31,6 +31,7 @@ import React, { useState } from 'react';
 import AddOrder from '../Changes/AddOrder';
 import DisplayOrder from '../Changes/DisplayOrder';
 import './orders.css';
+import './addbutton.css'
 
 const Orders = () => {
   const [shouldRefresh, setShouldRefresh] = useState(false);
@@ -61,7 +62,7 @@ const Orders = () => {
             </div>
       )}
       <div className="column">
-        <button onClick={toggleAddOrderPopup}>Add Order</button>
+        <button className='add-button' onClick={toggleAddOrderPopup}>Add Order</button>
         <DisplayOrder shouldRefresh={shouldRefresh} />
       </div>
     </div>

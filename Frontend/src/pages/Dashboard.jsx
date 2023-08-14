@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
+import DisplayCustomer from '../Changes/DisplayCustomer';
+import DisplayInventory from '../Changes/DisplayInventory';
 
-const Dashboard = () => {
-    return (
-        <div>
-            <h1>dashboard page</h1>
+function Dashboard() {
+    const [shouldRefresh, setShouldRefresh] = useState(false);
+  return (
+    <div><div>
+        <DisplayInventory shouldRefresh={shouldRefresh} />
         </div>
-    );
-};
+        <div><DisplayCustomer shouldRefresh={shouldRefresh} />
+        </div>
+        </div>
+  )
+}
 
-export default Dashboard;
+export default Dashboard
